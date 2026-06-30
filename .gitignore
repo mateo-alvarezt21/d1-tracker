@@ -1,0 +1,8 @@
+# Python (scripts de build)
+__pycache__/
+*.py[cod]
+
+# Estado local de herramientas / OS
+.claude/
+.DS_Store
+Thumbs.db

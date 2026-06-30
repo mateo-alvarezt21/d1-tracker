@@ -1,64 +1,67 @@
-# Despliegue — Mi Canasta D1
+# Despliegue — Mi Canasta D1 (Coolify)
 
-Sitio estático (HTML/CSS/JS, sin backend). Se sirve con nginx vía Docker.
+Sitio estático (HTML/CSS/JS, sin backend). Se construye con el `Dockerfile`
+(nginx) y se despliega en **Coolify**, que maneja el dominio y el HTTPS.
 
-## 1. Antes de desplegar: poner tu dominio
+Dominio: **https://canastad1.mainics.com**
 
-El preview de WhatsApp/redes necesita URLs **absolutas**. Reemplaza el
-placeholder `https://TU-DOMINIO.com` por tu dominio real en:
+---
 
-- `index.html` → etiquetas `canonical`, `og:url`, `og:image`, `twitter:image`
+## 1. Subir el proyecto a Git
+
+Coolify despliega desde un repositorio (GitHub / GitLab / Gitea):
 
 ```bash
-# ejemplo (bash): reemplazar en index.html
-sed -i 's#https://TU-DOMINIO.com#https://midominio.com#g' index.html
+git init
+git add .
+git commit -m "Mi Canasta D1 — listo para desplegar"
+git branch -M main
+git remote add origin git@github.com:TU_USUARIO/canastad1.git
+git push -u origin main
 ```
 
-## 2. Build & run con Docker
+## 2. DNS
 
-> Requiere Docker Desktop **abierto** (el engine corriendo).
+Crea un registro **A** apuntando a la IP de tu servidor Coolify:
+
+```
+canastad1.mainics.com   A   <IP_DEL_SERVIDOR_COOLIFY>
+```
+
+## 3. Crear la aplicación en Coolify
+
+1. **+ New** → **Application** → conecta tu fuente de Git y elige el repo/rama (`main`).
+2. **Build Pack:** `Dockerfile`  *(Coolify detecta el `Dockerfile` en la raíz).*
+3. **Port / Ports Exposes:** `80`  *(nginx escucha en el 80).*
+4. **Domains:** `https://canastad1.mainics.com`
+   - Coolify provisiona el certificado SSL (Let's Encrypt) automáticamente.
+   - No publiques puertos al host: el proxy de Coolify enruta el dominio → contenedor:80.
+5. **Deploy.**
+
+Cada `git push` a `main` puede redeplegar automáticamente (si activas el webhook/auto-deploy).
+
+---
+
+## Notas
+
+- **Caché:** el `nginx.conf` sirve HTML/JS/CSS con `Cache-Control: no-cache`
+  (revalidan con ETag), así nunca queda una versión vieja pegada tras un deploy.
+- **Imagen OG / WhatsApp:** queda en `https://canastad1.mainics.com/og-image.png`
+  (incluida en la imagen). Valídala tras el deploy en https://www.opengraph.xyz/.
+- **Healthcheck:** el `Dockerfile` ya trae uno (`wget` a `/`).
+
+## Probar local antes (opcional, requiere Docker Desktop abierto)
 
 ```bash
 docker build -t mi-canasta-d1 .
-docker run -d --name mi-canasta -p 8080:80 mi-canasta-d1
-# abrir http://localhost:8080
-```
-
-Parar / borrar:
-
-```bash
+docker run -d --name mi-canasta -p 8080:80 mi-canasta-d1   # http://localhost:8080
 docker rm -f mi-canasta
 ```
 
-## 3. Desplegar en un servidor
-
-Cualquier host con Docker (VPS, Fly.io, Render, Railway, Cloud Run, etc.):
+## Regenerar datos / assets (opcional)
 
 ```bash
-docker build -t mi-canasta-d1 .
-docker tag mi-canasta-d1 TU_REGISTRO/mi-canasta-d1:latest
-docker push TU_REGISTRO/mi-canasta-d1:latest
+python scripts/scrape_d1.py        # refresca precios reales desde D1
+python scripts/build_app_data.py   # regenera app-data.js
+python scripts/make_assets.py      # regenera favicon, iconos y og-image
 ```
-
-Como es estático, también puedes subir directo a Netlify, Vercel, GitHub
-Pages o Cloudflare Pages: solo necesitan estos archivos (sin `Dockerfile`):
-
-```
-index.html app.js app-data.js styles.css
-favicon.svg apple-touch-icon.png icon-192.png icon-512.png og-image.png
-site.webmanifest robots.txt
-```
-
-## 4. Regenerar datos / assets (opcional)
-
-```bash
-python scripts/scrape_d1.py          # refresca precios reales desde D1
-python scripts/build_app_data.py     # regenera app-data.js
-python scripts/make_assets.py        # regenera favicon, iconos y og-image
-```
-
-## Verificar el preview de WhatsApp
-
-Tras desplegar con el dominio real, valida en:
-- https://www.opengraph.xyz/  (pega tu URL)
-- o comparte el link en un chat de WhatsApp contigo mismo.
