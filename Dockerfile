@@ -14,7 +14,7 @@ COPY site.webmanifest robots.txt ./
 
 EXPOSE 80
 
-# Sin HEALTHCHECK en el Dockerfile a propósito: Coolify monitorea la salud por
-# HTTP a través de su proxy. Un healthcheck interno con wget/localhost es frágil
-# (localhost puede resolver a IPv6 mientras nginx escucha en IPv4) y bloqueaba
-# el rollout. Si quieres uno, configúralo en la UI de Coolify (HTTP a "/").
+# Healthcheck robusto: usa 127.0.0.1 (IPv4 — nginx escucha ahí seguro) en vez de
+# localhost (que puede resolver a IPv6 ::1 y fallar). nginx:alpine trae wget.
+HEALTHCHECK --interval=5s --timeout=3s --start-period=3s --retries=5 \
+  CMD wget -qO- http://127.0.0.1:80/ >/dev/null 2>&1 || exit 1
