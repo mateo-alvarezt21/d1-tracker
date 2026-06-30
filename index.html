@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ===== SEO ===== -->
+<title>Mi Canasta D1 — Planea tu mercado a tu presupuesto</title>
+<meta name="description" content="Arma tu lista de compras y plan de comidas con productos y precios reales, ajustado a tu presupuesto. Proyecto personal independiente, sin relación con Tiendas D1.">
+<meta name="keywords" content="mercado, lista de compras, plan de comidas, presupuesto, canasta familiar, Colombia, recetas económicas">
+<meta name="author" content="Mateo · Mainics">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#E30613">
+<link rel="canonical" href="https://canastad1.mainics.com/">
+
+<!-- ===== Open Graph (WhatsApp, Facebook) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mi Canasta D1">
+<meta property="og:title" content="Mi Canasta D1 — Planea tu mercado a tu presupuesto">
+<meta property="og:description" content="Lista de compras y plan de comidas con productos y precios reales, ajustado a tu presupuesto. Proyecto personal, sin relación con Tiendas D1.">
+<meta property="og:url" content="https://canastad1.mainics.com/">
+<meta property="og:image" content="https://canastad1.mainics.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mi Canasta D1 — Planea tu mercado a tu presupuesto">
+<meta property="og:locale" content="es_CO">
+
+<!-- ===== Twitter Card ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mi Canasta D1 — Planea tu mercado a tu presupuesto">
+<meta name="twitter:description" content="Lista de compras y plan de comidas con productos y precios reales, ajustado a tu presupuesto. Proyecto personal, sin relación con Tiendas D1.">
+<meta name="twitter:image" content="https://canastad1.mainics.com/og-image.png">
+
+<!-- ===== Favicon / iconos ===== -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="root">
+
+  <!-- ===== LANDING ===== -->
+  <section id="landing" class="landing">
+    <div class="topbar-disclaimer">⚠️ Proyecto personal sin ánimo de lucro · No tenemos ninguna relación con Tiendas D1 · No vendemos nada</div>
+    <div class="landing-inner">
+      <div class="landing-logo-wrap">
+        <svg class="d1-logo d1-logo--lg" viewBox="0 0 46 46" aria-label="d1">
+          <rect width="46" height="46" rx="11" fill="#E30613"></rect>
+          <text x="23" y="33" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="26" fill="#fff">d1</text>
+        </svg>
+      </div>
+      <div class="landing-badge"><span class="dot-yellow"></span>Planea tu mercado en Tiendas D1</div>
+      <h1 class="landing-title">Mercado inteligente,<br><span class="accent-red">a tu presupuesto.</span></h1>
+      <p class="landing-sub">Mi Canasta arma tu plan de comidas y la lista de compras completa con productos reales de D1 — sin pasarte de lo que quieres gastar.</p>
+      <button id="start-app-btn" class="btn-cta-landing">Comenzar mi plan →</button>
+      <div class="landing-features">
+        <div class="feature-card">
+          <div class="feature-emoji">🛒</div>
+          <div class="feature-title">Lista lista para comprar</div>
+          <div class="feature-desc">Agrupada por categorías con precios reales en COP.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-emoji">🍽️</div>
+          <div class="feature-title">Plan de comidas</div>
+          <div class="feature-desc">Desayuno, almuerzo y cena para cada día.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-emoji">💰</div>
+          <div class="feature-title">Control de presupuesto</div>
+          <div class="feature-desc">Te avisa si te pasas de lo que quieres gastar.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== APP ===== -->
+  <div id="app-view" class="hidden">
+    <header class="app-header">
+      <div class="topbar-disclaimer">⚠️ Proyecto personal sin ánimo de lucro · No tenemos ninguna relación con Tiendas D1 · No vendemos nada</div>
+      <div class="header-row">
+        <div id="logo-home" class="header-logo">
+          <svg class="d1-logo" viewBox="0 0 46 46" aria-label="d1">
+            <rect width="46" height="46" rx="11" fill="#E30613"></rect>
+            <text x="23" y="33" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="26" fill="#fff">d1</text>
+          </svg>
+          <div class="header-title">
+            <span class="header-app-name">Mi Canasta</span>
+            <span class="header-app-sub">Tiendas D1</span>
+          </div>
+        </div>
+        <div class="header-spacer"></div>
+        <div class="header-chip"><span class="dot-yellow-sm"></span><span id="header-chip-text"></span></div>
+      </div>
+      <div class="progress-wrap"><div id="progress-steps" class="progress-steps"></div></div>
+    </header>
+
+    <main class="main">
+      <div id="step1" class="step-panel hidden">
+        <div class="step1-inner">
+          <h1 class="step1-title">Arma tu plan de mercado</h1>
+          <p class="step1-sub">Dinos tu presupuesto y preferencias y te armamos el plan de comidas y la lista de compras para D1.</p>
+
+          <div class="card">
+            <label class="card-label" for="budget-input">Presupuesto (COP)</label>
+            <div class="budget-row">
+              <span class="budget-prefix">$</span>
+              <input type="number" id="budget-input" class="budget-input" />
+            </div>
+            <div id="budget-helper" class="budget-helper"></div>
+          </div>
+
+          <div class="card">
+            <label class="card-label">Número de días</label>
+            <div id="day-pills" class="pill-row"></div>
+          </div>
+
+          <div class="card">
+            <label class="card-label">Número de personas</label>
+            <div id="people-pills" class="pill-row"></div>
+          </div>
+
+          <div class="card">
+            <div class="cal-head">
+              <label class="card-label" style="margin-bottom:0;">Meta de calorías diarias</label>
+              <span class="cal-value" id="cal-value">2.000 <span class="cal-unit">kcal</span></span>
+            </div>
+            <input type="range" id="calorie-slider" min="1200" max="3000" step="50" style="width:100%;" />
+            <div class="cal-scale"><span>1.200</span><span>3.000</span></div>
+          </div>
+
+          <div class="card" style="margin-bottom:24px;">
+            <label class="card-label">Preferencias alimentarias</label>
+            <div id="diet-pills" class="pill-row"></div>
+          </div>
+
+          <div id="feasibility-card" class="card"></div>
+
+          <button id="generate-btn" class="btn-generate">Generar mi plan →</button>
+        </div>
+      </div>
+
+      <div id="step2" class="step-panel hidden"></div>
+
+      <div id="step3" class="step-panel hidden"></div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-line">Creado por <span class="footer-name">Mateo</span>, de <span class="footer-brand">Mainics</span>, con amor <span class="footer-heart">❤</span></div>
+    <div class="footer-sub">Mi Canasta D1 · Precios y productos de referencia</div>
+  </footer>
+
+  <!-- ===== LOADING ===== -->
+  <div id="loading-overlay" class="loading-overlay hidden">
+    <div class="loading-spinner-wrap">
+      <div class="loading-spinner"></div>
+      <div class="loading-logo">
+        <svg class="d1-logo d1-logo--md" viewBox="0 0 46 46" aria-label="d1">
+          <rect width="46" height="46" rx="11" fill="#E30613"></rect>
+          <text x="23" y="33" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="26" fill="#fff">d1</text>
+        </svg>
+      </div>
+    </div>
+    <div id="loading-msg" class="loading-msg"></div>
+    <div class="loading-dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- ===== RECIPE MODAL ===== -->
+  <div id="recipe-overlay" class="recipe-overlay hidden">
+    <div id="recipe-panel" class="recipe-panel">
+      <div class="recipe-header">
+        <div>
+          <div id="recipe-meta" class="recipe-meta"></div>
+          <h2 id="recipe-name" class="recipe-name"></h2>
+        </div>
+        <button id="recipe-close" class="recipe-close-btn">×</button>
+      </div>
+      <div class="recipe-body">
+        <div class="recipe-wip">🚧 Estamos trabajando en construir mejores recetas. Por ahora te mostramos los ingredientes con productos reales de D1 — ¡pronto más y mejores opciones!</div>
+        <div id="recipe-nutrition" class="recipe-nutrition"></div>
+        <h3 class="section-title"><span class="dot-red"></span>Ingredientes</h3>
+        <div id="recipe-ingredients" class="recipe-ingredients"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script src="app-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

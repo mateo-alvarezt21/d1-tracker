@@ -1,0 +1,9 @@
+.claude/
+data/
+scripts/
+node_modules/
+.git/
+*.md
+.gitignore
+Dockerfile
+.dockerignore
