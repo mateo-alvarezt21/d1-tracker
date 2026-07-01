@@ -36,7 +36,7 @@ def d1_badge(size):
     r = int(size * 0.24)
     d.rounded_rectangle([0, 0, size - 1, size - 1], radius=r, fill=RED)
     f = font(int(size * 0.56))
-    text = "d1"
+    text = "d2"
     bbox = d.textbbox((0, 0), text, font=f)
     tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
     d.text(((size - tw) / 2 - bbox[0], (size - th) / 2 - bbox[1]), text, font=f, fill=WHITE)
@@ -82,7 +82,7 @@ def make_favicon_svg():
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 46">\n'
         '  <rect width="46" height="46" rx="11" fill="#E30613"/>\n'
         '  <text x="23" y="33" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" '
-        'font-weight="900" font-size="26" fill="#ffffff">d1</text>\n'
+        'font-weight="900" font-size="26" fill="#ffffff">d2</text>\n'
         '</svg>\n'
     )
     with open(os.path.join(ROOT, "favicon.svg"), "w", encoding="utf-8") as f:
